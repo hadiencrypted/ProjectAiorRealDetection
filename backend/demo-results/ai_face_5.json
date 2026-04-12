@@ -1,0 +1,34 @@
+{
+  "detection": {
+    "verdict": "AI",
+    "confidence": 61,
+    "comments": "This is a borderline case. While the image appears realistic, subtle frequency and texture inconsistencies suggest possible synthetic origin.",
+    "metadata": {},
+    "spectral": {
+      "A_sensor_noise": 35,
+      "B_texture": 58,
+      "C_color": 52,
+      "D_edge": 60,
+      "E_frequency": 66,
+      "F_metadata": 18,
+      "G_semantic": 50
+    }
+  },
+  "forensic": {
+    "spectral": {
+      "A_sensor_noise": 35,
+      "B_texture": 58,
+      "C_color": 52,
+      "D_edge": 60,
+      "E_frequency": 66,
+      "F_metadata": 18,
+      "G_semantic": 50
+    },
+    "analysis": "Weaker AI signals with higher sensor noise than typical AI images. Frequency and texture indicators are near the decision boundary."
+  },
+  "metadata_info": {
+    "exif_present": false,
+    "software_hint": "Possible synthetic pipeline",
+    "note": "Lack of camera metadata is consistent with generated images"
+  }
+}

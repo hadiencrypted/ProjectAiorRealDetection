@@ -1,0 +1,34 @@
+{
+  "detection": {
+    "verdict": "AI",
+    "confidence": 70,
+    "comments": "Lighting transitions and frequency anomalies suggest the scene may be AI-generated.",
+    "metadata": {},
+    "spectral": {
+      "A_sensor_noise": 20,
+      "B_texture": 67,
+      "C_color": 59,
+      "D_edge": 68,
+      "E_frequency": 76,
+      "F_metadata": 12,
+      "G_semantic": 55
+    }
+  },
+  "forensic": {
+    "spectral": {
+      "A_sensor_noise": 20,
+      "B_texture": 67,
+      "C_color": 59,
+      "D_edge": 68,
+      "E_frequency": 76,
+      "F_metadata": 12,
+      "G_semantic": 55
+    },
+    "analysis": "Strong frequency domain anomalies detected with unnatural lighting falloff patterns in environmental composition."
+  },
+  "metadata_info": {
+    "exif_present": false,
+    "software_hint": "Possible synthetic pipeline",
+    "note": "Lack of camera metadata is consistent with generated images"
+  }
+}

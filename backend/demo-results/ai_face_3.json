@@ -1,0 +1,39 @@
+{
+  "detection": {
+    "verdict": "AI",
+    "confidence": 65,
+    "comments": "Subtle inconsistencies in facial structure and texture distribution suggest possible AI generation.",
+    "metadata": {},
+    "spectral": {
+      "A_sensor_noise": 25,
+      "B_texture": 64,
+      "C_color": 54,
+      "D_edge": 63,
+      "E_frequency": 71,
+      "F_metadata": 15,
+      "G_semantic": 53
+    }
+  },
+  "forensic": {
+    "spectral": {
+      "A_sensor_noise": 25,
+      "B_texture": 64,
+      "C_color": 54,
+      "D_edge": 63,
+      "E_frequency": 71,
+      "F_metadata": 15,
+      "G_semantic": 53
+    },
+    "analysis": "Moderate spectral signals with slight uncertainty in texture and edge coherence patterns."
+  },
+  "metadata_info": {
+    "exif_present": false,
+    "software_hint": "Possible synthetic pipeline",
+    "note": "Lack of camera metadata is consistent with generated images"
+  },
+  "reverse": {
+    "edited_confidence": 0.60,
+    "edited_region_percentage": 18,
+    "note": "Localized inconsistency detected in facial region — texture deviation suggests partial synthetic blending."
+  }
+}

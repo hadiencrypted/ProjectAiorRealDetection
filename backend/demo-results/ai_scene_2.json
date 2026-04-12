@@ -1,0 +1,39 @@
+{
+  "detection": {
+    "verdict": "AI",
+    "confidence": 66,
+    "comments": "Repetitive structures and lack of natural noise variation indicate synthetic patterns.",
+    "metadata": {},
+    "spectral": {
+      "A_sensor_noise": 23,
+      "B_texture": 65,
+      "C_color": 56,
+      "D_edge": 66,
+      "E_frequency": 73,
+      "F_metadata": 14,
+      "G_semantic": 52
+    }
+  },
+  "forensic": {
+    "spectral": {
+      "A_sensor_noise": 23,
+      "B_texture": 65,
+      "C_color": 56,
+      "D_edge": 66,
+      "E_frequency": 73,
+      "F_metadata": 14,
+      "G_semantic": 52
+    },
+    "analysis": "Repeated structural patterns with suppressed natural noise variation across scene elements."
+  },
+  "metadata_info": {
+    "exif_present": false,
+    "software_hint": "Possible synthetic pipeline",
+    "note": "Lack of camera metadata is consistent with generated images"
+  },
+  "reverse": {
+    "edited_confidence": 0.72,
+    "edited_region_percentage": 25,
+    "note": "Strong localized anomaly detected — approximately 25% of image region shows frequency deviation consistent with synthetic insertion."
+  }
+}

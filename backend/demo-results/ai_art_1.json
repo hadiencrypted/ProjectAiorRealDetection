@@ -1,0 +1,34 @@
+{
+  "detection": {
+    "verdict": "AI",
+    "confidence": 72,
+    "comments": "Color distribution and uniform texture patterns are consistent with generated artwork.",
+    "metadata": {},
+    "spectral": {
+      "A_sensor_noise": 16,
+      "B_texture": 71,
+      "C_color": 69,
+      "D_edge": 64,
+      "E_frequency": 77,
+      "F_metadata": 10,
+      "G_semantic": 54
+    }
+  },
+  "forensic": {
+    "spectral": {
+      "A_sensor_noise": 16,
+      "B_texture": 71,
+      "C_color": 69,
+      "D_edge": 64,
+      "E_frequency": 77,
+      "F_metadata": 10,
+      "G_semantic": 54
+    },
+    "analysis": "High color uniformity and texture regularity indicate algorithmically rendered artwork with minimal natural variance."
+  },
+  "metadata_info": {
+    "exif_present": false,
+    "software_hint": "Possible synthetic pipeline",
+    "note": "Lack of camera metadata is consistent with generated images"
+  }
+}

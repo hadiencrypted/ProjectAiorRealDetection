@@ -1,0 +1,34 @@
+{
+  "detection": {
+    "verdict": "AI",
+    "confidence": 74,
+    "comments": "Unnatural environmental composition and strong frequency irregularities suggest AI generation.",
+    "metadata": {},
+    "spectral": {
+      "A_sensor_noise": 17,
+      "B_texture": 70,
+      "C_color": 62,
+      "D_edge": 71,
+      "E_frequency": 80,
+      "F_metadata": 11,
+      "G_semantic": 57
+    }
+  },
+  "forensic": {
+    "spectral": {
+      "A_sensor_noise": 17,
+      "B_texture": 70,
+      "C_color": 62,
+      "D_edge": 71,
+      "E_frequency": 80,
+      "F_metadata": 11,
+      "G_semantic": 57
+    },
+    "analysis": "Very high frequency anomalies with strong AI signatures across texture, edge, and semantic spectral groups."
+  },
+  "metadata_info": {
+    "exif_present": false,
+    "software_hint": "Possible synthetic pipeline",
+    "note": "Lack of camera metadata is consistent with generated images"
+  }
+}

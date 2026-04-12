@@ -1,0 +1,34 @@
+{
+  "detection": {
+    "verdict": "AI",
+    "confidence": 73,
+    "comments": "Facial symmetry and smooth texture patterns suggest AI-generated content, though some natural features are present.",
+    "metadata": {},
+    "spectral": {
+      "A_sensor_noise": 18,
+      "B_texture": 72,
+      "C_color": 61,
+      "D_edge": 67,
+      "E_frequency": 78,
+      "F_metadata": 14,
+      "G_semantic": 58
+    }
+  },
+  "forensic": {
+    "spectral": {
+      "A_sensor_noise": 18,
+      "B_texture": 72,
+      "C_color": 61,
+      "D_edge": 67,
+      "E_frequency": 78,
+      "F_metadata": 14,
+      "G_semantic": 58
+    },
+    "analysis": "Strong texture uniformity and high-frequency anomalies consistent with neural network upsampling artifacts."
+  },
+  "metadata_info": {
+    "exif_present": false,
+    "software_hint": "Possible synthetic pipeline",
+    "note": "Lack of camera metadata is consistent with generated images"
+  }
+}

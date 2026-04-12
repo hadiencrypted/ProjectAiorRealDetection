@@ -1,0 +1,34 @@
+{
+  "detection": {
+    "verdict": "AI",
+    "confidence": 69,
+    "comments": "Texture consistency and lighting gradients indicate synthetic origin, but not all signals are strongly aligned.",
+    "metadata": {},
+    "spectral": {
+      "A_sensor_noise": 22,
+      "B_texture": 68,
+      "C_color": 57,
+      "D_edge": 65,
+      "E_frequency": 74,
+      "F_metadata": 13,
+      "G_semantic": 55
+    }
+  },
+  "forensic": {
+    "spectral": {
+      "A_sensor_noise": 22,
+      "B_texture": 68,
+      "C_color": 57,
+      "D_edge": 65,
+      "E_frequency": 74,
+      "F_metadata": 13,
+      "G_semantic": 55
+    },
+    "analysis": "Balanced texture and frequency signals with moderate AI indicators across multiple spectral groups."
+  },
+  "metadata_info": {
+    "exif_present": false,
+    "software_hint": "Possible synthetic pipeline",
+    "note": "Lack of camera metadata is consistent with generated images"
+  }
+}

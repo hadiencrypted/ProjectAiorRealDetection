@@ -1,0 +1,34 @@
+{
+  "detection": {
+    "verdict": "AI",
+    "confidence": 68,
+    "comments": "Stylized rendering and lack of natural photographic noise suggest synthetic origin.",
+    "metadata": {},
+    "spectral": {
+      "A_sensor_noise": 18,
+      "B_texture": 67,
+      "C_color": 66,
+      "D_edge": 62,
+      "E_frequency": 75,
+      "F_metadata": 11,
+      "G_semantic": 53
+    }
+  },
+  "forensic": {
+    "spectral": {
+      "A_sensor_noise": 18,
+      "B_texture": 67,
+      "C_color": 66,
+      "D_edge": 62,
+      "E_frequency": 75,
+      "F_metadata": 11,
+      "G_semantic": 53
+    },
+    "analysis": "Stylized rendering patterns with absent photographic sensor noise and controlled frequency distribution."
+  },
+  "metadata_info": {
+    "exif_present": false,
+    "software_hint": "Possible synthetic pipeline",
+    "note": "Lack of camera metadata is consistent with generated images"
+  }
+}
