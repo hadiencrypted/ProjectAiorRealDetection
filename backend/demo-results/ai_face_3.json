@@ -1,39 +1,7 @@
 {
-  "detection": {
-    "verdict": "AI",
-    "confidence": 65,
-    "comments": "Subtle inconsistencies in facial structure and texture distribution suggest possible AI generation.",
-    "metadata": {},
-    "spectral": {
-      "A_sensor_noise": 25,
-      "B_texture": 64,
-      "C_color": 54,
-      "D_edge": 63,
-      "E_frequency": 71,
-      "F_metadata": 15,
-      "G_semantic": 53
-    }
-  },
-  "forensic": {
-    "spectral": {
-      "A_sensor_noise": 25,
-      "B_texture": 64,
-      "C_color": 54,
-      "D_edge": 63,
-      "E_frequency": 71,
-      "F_metadata": 15,
-      "G_semantic": 53
-    },
-    "analysis": "Moderate spectral signals with slight uncertainty in texture and edge coherence patterns."
-  },
-  "metadata_info": {
-    "exif_present": false,
-    "software_hint": "Possible synthetic pipeline",
-    "note": "Lack of camera metadata is consistent with generated images"
-  },
-  "reverse": {
-    "edited_confidence": 0.60,
-    "edited_region_percentage": 18,
-    "note": "Localized inconsistency detected in facial region — texture deviation suggests partial synthetic blending."
-  }
+  "verdict": "AI SYNTHETIC",
+  "confidence": 69,
+  "comments": "Profile portrait shows AI-synthesized skin with characteristic over-smoothing in the cheek and jaw region — genuine photography at this focal length retains visible pore structure and fine vellus hair. The lily flower exhibits perfect bilateral symmetry in petal placement inconsistent with natural botanical growth patterns. Shadow cast by the flower on the face shows soft-body light physics computed by a neural renderer rather than real photon scatter. Ear cartilage detail is simplified and lacks the individual anatomical variation present in real portrait photography.",
+  "spectral": "DCT coefficient analysis shows absence of JPEG ringing artifacts at skin-background boundary, indicating synthetic composition rather than camera capture. Spectral energy in the 0.5–0.8 cycles/pixel band is elevated, consistent with AI detail synthesis.",
+  "metadata": "No camera metadata present; color profile is sRGB default without device-specific calibration tag; file structure matches AI image export pipeline."
 }

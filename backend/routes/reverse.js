@@ -36,7 +36,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
     storage,
     fileFilter,
-    limits: { fileSize: 20 * 1024 * 1024 }, // 20 MB max
+    limits: { fileSize: 100 * 1024 * 1024 }, // 100 MB max
 });
 
 
@@ -103,7 +103,19 @@ function runReverseAnalysis(imagePath) {
 
 // ── POST /reverse ────────────────────────────────────────────────────────────
 
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', (req, res, next) => {
+    upload.single('image')(req, res, (err) => {
+        if (err instanceof multer.MulterError) {
+            if (err.code === 'LIMIT_FILE_SIZE') {
+                return res.status(400).json({ error: 'File too large', message: 'Maximum upload size is 100MB.' });
+            }
+            return res.status(400).json({ error: 'Upload failed', message: err.message });
+        } else if (err) {
+            return res.status(500).json({ error: 'Server error', message: err.message });
+        }
+        next();
+    });
+}, async (req, res) => {
     if (!req.file) {
         return res.status(400).json({
             error: 'No image file provided. Use field name "image".',

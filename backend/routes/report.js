@@ -76,15 +76,22 @@ router.post('/', async (req, res) => {
 
         // ── Full report HTML (dark-themed, branded) ─────────────────────────
         const html = `<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        @page {
+            size: A4;
+            margin: 20mm 15mm;
+        }
         * { box-sizing:border-box; margin:0; padding:0; }
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             background: #0a0a0a; color: #e0e0e0;
-            padding: 50px; line-height: 1.6;
+            padding: 40px; line-height: 1.6;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
         }
         .header {
             text-align: center; margin-bottom: 40px;
@@ -100,12 +107,12 @@ router.post('/', async (req, res) => {
         .verdict-label { font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
         .verdict-value { font-size: 36px; font-weight: 700; color: ${verdictColor}; margin: 8px 0; }
         .confidence-value { font-size: 18px; color: #aaa; }
-        .section { margin-top: 30px; }
+        .section { margin-top: 30px; page-break-inside: avoid; }
         .section h2 { font-size: 18px; color: #fff; border-bottom: 1px solid #333; padding-bottom: 8px; margin-bottom: 16px; }
         .meta-block {
             background: #111; border: 1px solid #222; border-radius: 8px;
             padding: 16px; font-size: 13px; white-space: pre-wrap;
-            font-family: 'Cascadia Code', 'Fira Code', monospace; color: #aaa;
+            font-family: 'Courier New', Courier, monospace; color: #aaa;
         }
         .comments-block {
             background: #111; border: 1px solid #222; border-radius: 8px;
@@ -115,11 +122,12 @@ router.post('/', async (req, res) => {
             margin-top: 50px; text-align: center; color: #555;
             font-size: 11px; border-top: 1px solid #222; padding-top: 16px;
         }
+        img { max-width: 100%; height: auto; }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>TECHNO SCOPE</h1>
+        <h1>Image Sentinel</h1>
         <p>Forensic Image Analysis Report</p>
         <p style="margin-top:4px;">${timestamp}</p>
     </div>
@@ -161,7 +169,7 @@ router.post('/', async (req, res) => {
     ${imageSection}
 
     <div class="footer">
-        <p>TECHNO SCOPE — AI Image Detection & Forensic Platform</p>
+        <p>Image Sentinel — AI Image Detection &amp; Forensic Platform</p>
         <p>This report was generated automatically. Results are probabilistic, not definitive.</p>
     </div>
 </body>
@@ -169,22 +177,57 @@ router.post('/', async (req, res) => {
 
         // ── Render PDF via Puppeteer ────────────────────────────────────────
         const puppeteer = require('puppeteer');
-        const browser = await puppeteer.launch({
-            headless: 'new',
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        });
-        const page = await browser.newPage();
-        await page.setContent(html, { waitUntil: 'networkidle0' });
-        const pdfBuffer = await page.pdf({
-            format: 'A4',
-            printBackground: true,
-            margin: { top: '20mm', bottom: '20mm', left: '15mm', right: '15mm' },
-        });
-        await browser.close();
+        let browser;
+        try {
+            browser = await puppeteer.launch({
+                headless: 'new',
+                args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-gpu'],
+                timeout: 60000,
+            });
+            const page = await browser.newPage();
 
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=forensic_report.pdf');
-        res.send(pdfBuffer);
+            // Set viewport for consistent rendering
+            await page.setViewport({ width: 1024, height: 1400 });
+
+            // Use domcontentloaded — base64 data URIs don't need network;
+            // networkidle0 hangs or times out with large embedded images,
+            // producing empty / truncated PDFs.
+            await page.setContent(html, {
+                waitUntil: 'domcontentloaded',
+                timeout: 30000,
+            });
+
+            // Small delay to let any inline images decode
+            await new Promise(r => setTimeout(r, 500));
+
+            const pdfResult = await page.pdf({
+                format: 'A4',
+                printBackground: true,
+                preferCSSPageSize: false,
+                margin: { top: '20mm', bottom: '20mm', left: '15mm', right: '15mm' },
+            });
+
+            await browser.close();
+
+            // Puppeteer v24+ returns Uint8Array — convert to Buffer
+            const pdfBuffer = Buffer.from(pdfResult);
+
+            // Validate PDF — must start with %PDF header
+            if (!pdfBuffer || pdfBuffer.length < 100 || pdfBuffer.toString('ascii', 0, 5) !== '%PDF-') {
+                throw new Error('Generated PDF is empty or invalid');
+            }
+
+            res.setHeader('Content-Type', 'application/pdf');
+            res.setHeader('Content-Disposition', 'attachment; filename="forensic_report.pdf"');
+            res.setHeader('Content-Length', pdfBuffer.length);
+            res.setHeader('Cache-Control', 'no-cache');
+            return res.end(pdfBuffer);
+
+        } catch (puppeteerErr) {
+            console.error('[report] Puppeteer execution failed:', puppeteerErr);
+            if (browser) { try { await browser.close(); } catch(_) {} }
+            throw puppeteerErr;
+        }
 
     } catch (err) {
         console.error('[report] PDF generation failed:', err.message);

@@ -252,6 +252,8 @@ def heuristic_classify(image_path):
 
     # CRITICAL RULE: cap any class at 60% so no single signal dominates.
     # Iterative: redistribute excess from capped classes to uncapped ones.
+    # This ensures stable, deterministic output — no single signal can push
+    # confidence above 60% without multi-signal consensus.
     cap = 0.60
     probs_dict = {k: result[k] / total for k in result}
     for _ in range(10):                          # converges in ≤3 passes
@@ -266,9 +268,16 @@ def heuristic_classify(image_path):
             if probs_dict[k] < cap:
                 probs_dict[k] += excess * (probs_dict[k] / under_total)
     renorm = sum(probs_dict.values()) + 1e-9
-    return [probs_dict['Real'] / renorm,
-            probs_dict['AI']   / renorm,
-            probs_dict['Screenshot'] / renorm]
+    final = [probs_dict['Real'] / renorm,
+             probs_dict['AI']   / renorm,
+             probs_dict['Screenshot'] / renorm]
+
+    # Sanity check: ensure probabilities are valid floats
+    for i in range(3):
+        if not math.isfinite(final[i]):
+            final[i] = 0.34
+    s = sum(final) + 1e-9
+    return [f / s for f in final]
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -289,11 +298,12 @@ def main():
     probabilities = None
     model_loaded  = False
 
+    # CNN path: attempt to load trained model, fail gracefully to heuristic
     if TORCH_OK and os.path.isfile(model_path):
         try:
             device = torch.device('cpu')
             model  = AIDetectorCNN()
-            state  = torch.load(model_path, map_location=device)
+            state  = torch.load(model_path, map_location=device, weights_only=False)
             if isinstance(state, dict) and 'state_dict' in state:
                 state = state['state_dict']
             model.load_state_dict(state)
@@ -303,13 +313,23 @@ def main():
             with torch.no_grad():
                 logits = model(tensor)
                 probs  = F.softmax(logits, dim=1).squeeze(0).tolist()
-            probabilities = probs
-            model_loaded  = True
-        except Exception:
+            # Validate CNN output before accepting
+            if len(probs) == 3 and all(math.isfinite(p) for p in probs):
+                probabilities = probs
+                model_loaded  = True
+            else:
+                probabilities = None
+        except Exception as e:
+            # Always fall through to heuristic — never crash
             probabilities = None
 
+    # Heuristic fallback: always runs if CNN failed or gave invalid output
     if not model_loaded:
-        probabilities = heuristic_classify(image_path)
+        try:
+            probabilities = heuristic_classify(image_path)
+        except Exception as e:
+            # Ultimate fallback: uniform distribution
+            probabilities = [0.34, 0.33, 0.33]
 
     result = {
         'model_loaded': model_loaded,

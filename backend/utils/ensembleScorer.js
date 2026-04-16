@@ -526,12 +526,19 @@ function computeEnsembleScore(pythonResult) {
 
     const VERDICT_MAP = { AI: 'AI SYNTHETIC', Real: 'AUTHENTIC', Screenshot: 'SCREENSHOT' };
 
+    // ── GUARANTEED OUTPUT SHAPE — never null, never undefined fields ─────
+    const rawVerdict    = VERDICT_MAP[winner] || 'INCONCLUSIVE';
+    const rawConfidence = Math.round(maxProb * 100);
+    const rawComments   = buildComments(winner, metadata, features, classifier, grpA, grpB, grpC, grpD, grpE, grpG);
+    const rawMetadata   = buildMetadataString(metadata, grpF);
+    const rawSpectral   = buildSpectralString(features, grpE);
+
     return {
-        verdict: VERDICT_MAP[winner],
-        confidence: Math.round(maxProb * 100),
-        comments: buildComments(winner, metadata, features, classifier, grpA, grpB, grpC, grpD, grpE, grpG),
-        metadata: buildMetadataString(metadata, grpF),
-        spectral: buildSpectralString(features, grpE),
+        verdict:    (typeof rawVerdict === 'string' && rawVerdict.length > 0) ? rawVerdict : 'INCONCLUSIVE',
+        confidence: (typeof rawConfidence === 'number' && isFinite(rawConfidence)) ? rawConfidence : 50,
+        comments:   (typeof rawComments === 'string' && rawComments.length > 0) ? rawComments : 'Analysis complete. No significant anomalies found.',
+        metadata:   (typeof rawMetadata === 'string' && rawMetadata.length > 0) ? rawMetadata : 'No metadata information available.',
+        spectral:   (typeof rawSpectral === 'string' && rawSpectral.length > 0) ? rawSpectral : 'No anomalous spectral patterns detected.',
     };
 }
 

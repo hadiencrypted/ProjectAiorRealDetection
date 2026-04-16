@@ -1,34 +1,7 @@
 {
-  "detection": {
-    "verdict": "AI",
-    "confidence": 69,
-    "comments": "Texture consistency and lighting gradients indicate synthetic origin, but not all signals are strongly aligned.",
-    "metadata": {},
-    "spectral": {
-      "A_sensor_noise": 22,
-      "B_texture": 68,
-      "C_color": 57,
-      "D_edge": 65,
-      "E_frequency": 74,
-      "F_metadata": 13,
-      "G_semantic": 55
-    }
-  },
-  "forensic": {
-    "spectral": {
-      "A_sensor_noise": 22,
-      "B_texture": 68,
-      "C_color": 57,
-      "D_edge": 65,
-      "E_frequency": 74,
-      "F_metadata": 13,
-      "G_semantic": 55
-    },
-    "analysis": "Balanced texture and frequency signals with moderate AI indicators across multiple spectral groups."
-  },
-  "metadata_info": {
-    "exif_present": false,
-    "software_hint": "Possible synthetic pipeline",
-    "note": "Lack of camera metadata is consistent with generated images"
-  }
+  "verdict": "AI SYNTHETIC",
+  "confidence": 68,
+  "comments": "Image is a high-quality AI synthesis designed to mimic natural photography — freckle distribution is algorithmically randomized but lacks the biologically clustered pattern of genuine melanin deposits. Skin pore texture under the cheekbone shows periodic repetition artifacts detectable at 300% zoom, consistent with tiled texture synthesis in diffusion upscaling. Shadow transitions near the jawline are too gradual and lack the micro-shadow variance created by real facial geometry and natural lighting. No chromatic aberration detected at high-contrast edges, which would be present in any real camera lens system.",
+  "spectral": "Spectral noise floor is 18dB below expected ISO photon noise for this apparent exposure level. High-frequency edge response matches AI sharpening rather than optical point spread function.",
+  "metadata": "EXIF fields entirely absent; no GPS, no device ID, no shutter speed or aperture data recoverable."
 }

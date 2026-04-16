@@ -1,34 +1,7 @@
 {
-  "detection": {
-    "verdict": "AI",
-    "confidence": 61,
-    "comments": "This is a borderline case. While the image appears realistic, subtle frequency and texture inconsistencies suggest possible synthetic origin.",
-    "metadata": {},
-    "spectral": {
-      "A_sensor_noise": 35,
-      "B_texture": 58,
-      "C_color": 52,
-      "D_edge": 60,
-      "E_frequency": 66,
-      "F_metadata": 18,
-      "G_semantic": 50
-    }
-  },
-  "forensic": {
-    "spectral": {
-      "A_sensor_noise": 35,
-      "B_texture": 58,
-      "C_color": 52,
-      "D_edge": 60,
-      "E_frequency": 66,
-      "F_metadata": 18,
-      "G_semantic": 50
-    },
-    "analysis": "Weaker AI signals with higher sensor noise than typical AI images. Frequency and texture indicators are near the decision boundary."
-  },
-  "metadata_info": {
-    "exif_present": false,
-    "software_hint": "Possible synthetic pipeline",
-    "note": "Lack of camera metadata is consistent with generated images"
-  }
+  "verdict": "AI SYNTHETIC",
+  "confidence": 64,
+  "comments": "Film-border effect and vintage color grading are applied as post-process overlays on an underlying AI-generated portrait. The analog border vignette shows clean digital compositing edges inconsistent with genuine film frame boundaries from photochemical development. Freckle distribution on the subject's face follows a statistically regular dispersion pattern — authentic freckles exhibit fractal clustering driven by sun exposure biology. Chromatic bleeding in highlight areas mimics film halation but lacks the wavelength-dependent spread characteristic of real optical blooming.",
+  "spectral": "Underlying image prior to vintage filter shows zero photon noise in deep shadow regions — a physical impossibility in analog film capture. Filter layer frequency response is separable from base image, confirming synthetic overlay.",
+  "metadata": "Embedded metadata references digital creation; no film stock profile or scanner transfer curve detected in color management chain."
 }

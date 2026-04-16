@@ -1,34 +1,7 @@
 {
-  "detection": {
-    "verdict": "AI",
-    "confidence": 70,
-    "comments": "Lighting transitions and frequency anomalies suggest the scene may be AI-generated.",
-    "metadata": {},
-    "spectral": {
-      "A_sensor_noise": 20,
-      "B_texture": 67,
-      "C_color": 59,
-      "D_edge": 68,
-      "E_frequency": 76,
-      "F_metadata": 12,
-      "G_semantic": 55
-    }
-  },
-  "forensic": {
-    "spectral": {
-      "A_sensor_noise": 20,
-      "B_texture": 67,
-      "C_color": 59,
-      "D_edge": 68,
-      "E_frequency": 76,
-      "F_metadata": 12,
-      "G_semantic": 55
-    },
-    "analysis": "Strong frequency domain anomalies detected with unnatural lighting falloff patterns in environmental composition."
-  },
-  "metadata_info": {
-    "exif_present": false,
-    "software_hint": "Possible synthetic pipeline",
-    "note": "Lack of camera metadata is consistent with generated images"
-  }
+  "verdict": "AI SYNTHETIC",
+  "confidence": 63,
+  "comments": "Mountain landscape is a highly convincing AI synthesis mimicking analog film photography — atmospheric haze layering and tonal compression are characteristic of Stable Diffusion landscape training data. Despite convincing film grain simulation, spatial frequency analysis of the sky gradient reveals an entropy signature 2.3 standard deviations below genuine photographic sky capture at equivalent ISO. Vegetation detail in the foreground mid-ground transition zone shows diffusion blending where botanical specificity degrades, a known limitation of landscape generation models. Rock face geometry in the lower left shows surface normal inconsistency with the apparent sun angle.",
+  "spectral": "Sky region spectral analysis shows absence of Rayleigh scattering frequency signature present in genuine outdoor photography. Film grain overlay passes casual inspection but fails spatial autocorrelation test for authentic photochemical noise.",
+  "metadata": "Square format at 1024px with no EXIF; no GPS coordinates; no camera body or lens signature; film stock profile absent despite apparent analog aesthetic."
 }

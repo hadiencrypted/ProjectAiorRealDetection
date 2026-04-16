@@ -89,17 +89,14 @@ router.post('/', async (req, res) => {
     const apiKey = process.env.REVERSE_SEARCH_KEY || '';
     const provider = (process.env.REVERSE_SEARCH_PROVIDER || 'default').toLowerCase();
 
-    // If no API is configured, return helpful stub response
+    // If no API is configured, return clean unavailable response
     if (!endpoint) {
-        console.log('[search] No REVERSE_SEARCH_ENDPOINT configured — returning stub');
+        console.log('[search] No REVERSE_SEARCH_ENDPOINT configured — returning unavailable');
         return res.json({
-            provider: 'stub',
-            message: 'Reverse image search is not configured. Set REVERSE_SEARCH_ENDPOINT and REVERSE_SEARCH_KEY environment variables.',
-            results: [
-                { url: 'https://images.google.com', title: 'Google Images — Manual Search', thumbnail: '' },
-                { url: 'https://yandex.com/images', title: 'Yandex Images — Manual Search', thumbnail: '' },
-                { url: 'https://tineye.com', title: 'TinEye — Manual Reverse Image Search', thumbnail: '' },
-            ],
+            status: 'unavailable',
+            message: 'Reverse image search is not connected in this build.',
+            links: [],
+            results: [],
         });
     }
 
